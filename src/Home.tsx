@@ -6,14 +6,7 @@ export default function Home() {
   const [taskName, setTaskName] = useState<string>("");
   const { data, status } = useTasks();
   const addTask = useAddTask();
-  console.log("data", data);
 
-  if (status === "pending") {
-    return <div>Loading...</div>;
-  }
-  if (status === "error") {
-    return <div>Error loading tasks</div>;
-  }
   return (
     <>
       <p>Tasks</p>

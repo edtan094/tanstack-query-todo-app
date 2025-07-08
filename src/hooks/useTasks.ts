@@ -1,4 +1,9 @@
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useQueryClient,
+  useMutation,
+  useQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 const api = axios.create({
@@ -7,7 +12,7 @@ const api = axios.create({
 });
 
 export const useTasks = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
       const response = await api.get("");
@@ -17,13 +22,12 @@ export const useTasks = () => {
 };
 
 export const useTask = (id: number) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ["task", id],
     queryFn: async () => {
       const response = await api.get(`/${id}`);
       return response.data;
     },
-    enabled: !!id, // Only run the query if id is defined
   });
 };
 
